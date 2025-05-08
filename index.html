@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8">
   <title>Angular</title>
-  <base href="/Add-Event-Website">
+  <base href="/Add-Event-Website/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 <style>html,body{height:100%;padding:0;margin:0;font-family:Roboto,Arial,sans-serif;text-align:center;background-repeat:no-repeat;background-size:100% 100%;overflow:hidden}h1{margin-bottom:20px;font-size:32pt}select{margin-top:5px;margin-bottom:0;box-sizing:border-box;font-size:12pt}button{display:block;margin:15px auto 0;box-sizing:border-box;width:100px;height:25px;font-size:12pt}input[type=date]{margin:5px auto 10px;font-size:12pt}input[type=checkbox]{margin-top:0;margin-bottom:10px}.time{text-align:left}.grid{max-width:300px;margin-left:auto;margin-right:auto}.schools{display:grid;grid-template-columns:75px 75px 75px;text-align:left}label{font-size:14pt}.back{position:absolute;top:10px;left:10px;margin:0;font-size:14pt}</style><link rel="stylesheet" href="styles-ZUZDIXMJ.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-ZUZDIXMJ.css"></noscript></head>
 
 <body>
-
+  <app-root></app-root>
   <a href="https://rcdsb-matt-beres.github.io/Chart-Website/" class="back">← Back</a>
 
   <h1>Create Event</h1>
@@ -72,7 +72,7 @@
 
     // Authorization scopes required by the API; multiple scopes can be
     // included, separated by spaces.
-    const SCOPES = 'https://www.googleapis.com/auth/calendar';
+    const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
 
     let tokenClient;
     let gapiInited = false;
@@ -258,7 +258,7 @@
 
     const locations = [
       "ADH", "ADM", "AJC", "BCH", "CEN", "CDS", "COB", "EGN", "FHS", "HRM",
-      "HVW", "KIL", "MCS", "MCN", "MHS", "MVD", "OHS", "PAL", "PVW", "QEL",
+      "HVW", "KIL", "MAR", "MCS", "MCN", "MVD", "OHS", "PAL", "PVW", "QEL",
       "RCA", "RCI", "RCIS", "RCK", "VAL", "WPS", "WZD"
     ];
 
@@ -274,35 +274,38 @@
     }
 
     // Call the function after the DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', generateDynamicContent);
 
     document.addEventListener('DOMContentLoaded', () => {
+      getSeason();
+      generateDynamicContent()
       const dateInput = document.getElementById('date');
       const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
       dateInput.value = today; // Set the default value to today's date
-      getSeason();
     });
 
 
     checkDate = new Date();
     currMonth = checkDate.getMonth() + 1;
-    currSeason = "";
 
     function getSeason() {
       const body = document.body;
 
       // Remove any existing season class
-      body.classList.remove('Winter', 'Spring', 'Summer', 'Fall');
-
+      body.classList.remove('winter', 'spring', 'summer', 'fall');
+      console.log("IRAN")
       // Determine the current season and set it as the class of the body
       if (this.currMonth == 12 || this.currMonth <= 2) {
         body.classList.add('winter');
+        console.log("winter")
       } else if (this.currMonth >= 3 && this.currMonth <= 5) {
         body.classList.add('spring');
+        console.log("spring")
       } else if (this.currMonth >= 6 && this.currMonth <= 8) {
         body.classList.add('summer');
+        console.log("summer")
       } else if (this.currMonth >= 9 && this.currMonth <= 11) {
         body.classList.add('fall');
+        console.log("fall")
       }
     }
   </script>
