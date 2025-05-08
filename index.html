@@ -27,6 +27,7 @@
       <select name="eventTypes" id="eventTypes" onchange="handleEventTypeChange()">
         <option value="Conference">Conference</option>
         <option value="Field">Field</option>
+        <option value="Out">Out</option>
         <option value="Out of Office">Out of Office</option>
       </select>
     </div>
@@ -160,7 +161,7 @@
           dateTime: document.getElementById('allDay').checked == true ? null : document.getElementById('date').value + 'T' + document.getElementById('endTime').value + ':00-04:00',
           date: document.getElementById('allDay').checked == true ? document.getElementById('date').value : null
         },
-        colorId: document.getElementById('eventTypes').value == "Field" ? "10" : document.getElementById('eventTypes').value == "Conference" ? "5" : "0",
+        colorId: document.getElementById('eventTypes').value == "Field" ? "10" : document.getElementById('eventTypes').value == "Conference" ? "5" : document.getElementById('eventTypes').value == "Out" ? "0" : "6",
         attendees: [],
         reminders: {
         },
@@ -292,20 +293,15 @@
 
       // Remove any existing season class
       body.classList.remove('winter', 'spring', 'summer', 'fall');
-      console.log("IRAN")
       // Determine the current season and set it as the class of the body
       if (this.currMonth == 12 || this.currMonth <= 2) {
         body.classList.add('winter');
-        console.log("winter")
       } else if (this.currMonth >= 3 && this.currMonth <= 5) {
         body.classList.add('spring');
-        console.log("spring")
       } else if (this.currMonth >= 6 && this.currMonth <= 8) {
         body.classList.add('summer');
-        console.log("summer")
       } else if (this.currMonth >= 9 && this.currMonth <= 11) {
         body.classList.add('fall');
-        console.log("fall")
       }
     }
   </script>
