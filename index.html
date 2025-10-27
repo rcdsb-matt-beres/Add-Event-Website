@@ -7,7 +7,7 @@
   <base href="/Add-Event-Website/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-<style>html,body{height:100%;padding:0;margin:0;font-family:Roboto,Arial,sans-serif;text-align:center;background-repeat:no-repeat;background-size:100% 100%;overflow:hidden}h1{margin-bottom:20px;font-size:32pt}select{margin-top:5px;margin-bottom:0;box-sizing:border-box;font-size:12pt}button{display:block;margin:15px auto 0;box-sizing:border-box;width:100px;height:25px;font-size:12pt}input[type=date]{margin:5px auto 10px;font-size:12pt}input[type=checkbox]{margin-top:0;margin-bottom:10px}.time{text-align:left}.grid{max-width:300px;margin-left:auto;margin-right:auto}.schools{display:grid;grid-template-columns:75px 75px 75px;text-align:left}label{font-size:14pt}.back{position:absolute;top:10px;left:10px;margin:0;font-size:14pt}</style><link rel="stylesheet" href="styles-ZUZDIXMJ.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-ZUZDIXMJ.css"></noscript></head>
+<style>html,body{height:100%;padding:0;margin:0;font-family:Roboto,Arial,sans-serif;text-align:center;background-repeat:no-repeat;background-size:100% 100%;overflow:hidden}h1{margin-bottom:20px;font-size:32pt}select{margin-top:5px;margin-bottom:0;box-sizing:border-box;font-size:12pt}button{display:block;margin:15px auto 0;box-sizing:border-box;width:100px;height:25px;font-size:12pt}input[type=date]{margin:5px auto 10px;font-size:12pt}input[type=checkbox]{margin-top:0;margin-bottom:10px}.time{text-align:left}.grid{max-width:300px;margin-left:auto;margin-right:auto}.schools{display:grid;grid-template-columns:75px 75px 75px;text-align:left}label{font-size:14pt}.back{position:absolute;top:10px;left:10px;margin:0;font-size:14pt}</style><link rel="stylesheet" href="styles-46IN7DUU.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-46IN7DUU.css"></noscript></head>
 
 <body>
   <!-- I am terribly sorry to anyone who has to see this, this is not my proudest website but at least it's functional... -->
@@ -120,8 +120,10 @@
         body.classList.add('spring');
       } else if (currMonth >= 6 && currMonth <= 8) {
         body.classList.add('summer');
-      } else if (currMonth >= 9 && currMonth <= 11) {
-        body.classList.add('fall');
+      } else if (this.currMonth == 9 || this.currMonth == 11) {
+        body.classList.add("fall");
+      } else if (this.currMonth == 10) {
+        body.classList.add("halloween");
       }
     }
 
