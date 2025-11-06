@@ -7,7 +7,7 @@
   <base href="/Add-Event-Website/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-<style>html,body{height:100%;padding:0;margin:0;font-family:Roboto,Arial,sans-serif;text-align:center;background-repeat:no-repeat;background-size:100% 100%;overflow:hidden}h1{margin-bottom:20px;font-size:32pt}select{margin-top:5px;margin-bottom:0;box-sizing:border-box;font-size:12pt}button{display:block;margin:15px auto 0;box-sizing:border-box;width:100px;height:25px;font-size:12pt}input[type=date]{margin:5px auto 10px;font-size:12pt}input[type=checkbox]{margin-top:0;margin-bottom:10px}.time{text-align:left}.grid{max-width:300px;margin-left:auto;margin-right:auto}.schools{display:grid;grid-template-columns:75px 75px 75px;text-align:left}label{font-size:14pt}.back{position:absolute;top:10px;left:10px;margin:0;font-size:14pt}</style><link rel="stylesheet" href="styles-46IN7DUU.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-46IN7DUU.css"></noscript></head>
+<style>html,body{height:100%;padding:0;margin:0;font-family:Roboto,Arial,sans-serif;text-align:center;background-repeat:no-repeat;background-size:100% 100%;overflow:hidden}h1{margin-bottom:20px;font-size:32pt}select{margin-top:5px;margin-bottom:0;box-sizing:border-box;font-size:12pt}button{display:block;margin:15px auto 0;box-sizing:border-box;width:100px;height:25px;font-size:12pt}input[type=date]{margin:5px auto 10px;font-size:12pt}input[type=checkbox]{margin-top:0;margin-bottom:10px}.time{text-align:left}.grid{max-width:300px;margin-left:auto;margin-right:auto}.schools{display:grid;grid-template-columns:75px 75px 75px;text-align:left}label{font-size:14pt}.back{position:absolute;top:10px;left:10px;margin:0;font-size:14pt}</style><link rel="stylesheet" href="styles-TSYXCNFZ.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-TSYXCNFZ.css"></noscript></head>
 
 <body>
   <!-- I am terribly sorry to anyone who has to see this, this is not my proudest website but at least it's functional... -->
@@ -121,10 +121,14 @@
         body.classList.add('spring');
       } else if (currMonth >= 6 && currMonth <= 8) {
         body.classList.add('summer');
-      } else if (currMonth == 9 || currMonth == 11) {
-        body.classList.add('fall');
-      } else if (currMonth == 10) {
-        body.classList.add('halloween');
+      } else if (currMonth >= 9 && currMonth <= 11) {
+        if (currMonth == 10 && checkDate.getDate() >= 20) {
+          body.classList.add('halloween');
+        } else if (currMonth == 11 && checkDate.getDate() <= 11) {
+          body.classList.add('remembrance');
+        } else {
+          body.classList.add('fall');
+        }
       }
     }
 
@@ -156,16 +160,20 @@
       let summaryString = document.getElementById('names').value + ' - ' + document.getElementById('eventTypes').value + (document.getElementById('eventTypes').value == "Field" && locations.length > 0 ? ' (' + locations + ')' : '');
 
       //Create event obj, colorId is *supposed* to match the color of the event text on Chart-Website...
-      //Date formatting is done in the format YYYY-MM-DDTHH:MM:SS-04:00 for start and end times, or just YYYY-MM-DD for all day events
+      // Use JS Date objects to produce ISO timestamps (UTC) for the API.
+      // For all-day events we still send only the `date` value.
+      const startDateTime = document.getElementById('allDay').checked ? null : new Date(`${document.getElementById('date').value}T${document.getElementById('startTime').value}`).toISOString();
+      const endDateTime = document.getElementById('allDay').checked ? null : new Date(`${document.getElementById('date').value}T${document.getElementById('endTime').value}`).toISOString();
+
       const event = {
         summary: summaryString,
         description: '',
         start: {
-          dateTime: document.getElementById('allDay').checked ? null : new Date(`${document.getElementById('date').value}T${document.getElementById('startTime').value}:00-05:00`).toISOString(),
+          dateTime: startDateTime,
           date: document.getElementById('allDay').checked ? document.getElementById('date').value : null
         },
         end: {
-          dateTime: document.getElementById('allDay').checked == true ? null : new Date(`${document.getElementById('date').value}T${document.getElementById('endTime').value}:00-05:00`).toISOString(),
+          dateTime: endDateTime,
           date: document.getElementById('allDay').checked == true ? document.getElementById('date').value : null
         },
         colorId: document.getElementById('eventTypes').value == "Field" ? "10" : document.getElementById('eventTypes').value == "Conference" || document.getElementById('eventTypes').value == "Virtual Conference" ? "5" : document.getElementById('eventTypes').value == "Off" ? "0" : document.getElementById('eventTypes').value == "Remote" ? "9" : document.getElementById('eventTypes').value == "Meeting" ? "3" : document.getElementById('eventTypes').value == "Training" ? "2" : "6",
